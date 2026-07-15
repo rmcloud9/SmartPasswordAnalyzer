@@ -246,7 +246,7 @@ async function analyzePassword() {
 
         console.log(result);
 
-        setMlResult(result.ml);
+        //setMlResult(result.ml);
 
         setAnalysis(result.ai);
 
@@ -339,33 +339,6 @@ console.log(Array.isArray(users));
 </>
 
 
-<hr />
-<h2>ML Password Analysis</h2>
-{mlResult && (
-
-<div className="card">
-
-    <h2>Machine Learning Prediction</h2>
-
-    <p>
-
-        <b>Prediction :</b>
-
-        {mlResult.prediction}
-
-    </p>
-
-    <p>
-
-        <b>Confidence :</b>
-
-        {mlResult.confidence} %
-
-    </p>
-
-</div>
-
-)}
 
 <h2>AI Password Analysis</h2>
 

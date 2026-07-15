@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const db = require('./database/database');
 const app = express();
-const { predictPassword } = require("./mlService");
+//const { predictPassword } = require("./mlService");
 
 const PORT = 3000;
 
@@ -156,7 +156,7 @@ app.delete("/api/users/:id", (req, res) => {
 
 
 
-app.post("/api/password-analysis", async (req, res) => {
+/*app.post("/api/password-analysis", async (req, res) => {
 
     try {
 
@@ -264,6 +264,68 @@ app.post("/api/password-analysis", async (req, res) => {
     catch (err) {
 
         console.error("========== SERVER ERROR ==========");
+        console.error(err);
+
+        res.status(500).json({
+
+            status: "ERROR",
+
+            message: err.message
+
+        });
+
+    }
+
+});*/
+app.post("/api/password-analysis", async (req, res) => {
+
+    try {
+
+        const password = req.body.password;
+
+        const ollamaResponse = await axios.post(
+            "http://localhost:11434/api/generate",
+            {
+                model: "qwen2.5:3b",
+
+                prompt: `
+You are a cybersecurity expert.
+
+Analyze this password:
+
+${password}
+
+Give a short explanation.
+
+Give exactly 3 recommendations.
+
+Return ONLY valid JSON.
+
+{
+    "summary":"",
+    "recommendation":[]
+}
+`,
+
+                stream: false
+            }
+        );
+
+        const aiResult = JSON.parse(
+            ollamaResponse.data.response
+        );
+
+        res.json({
+
+            status: "SUCCESS",
+
+            ai: aiResult
+
+        });
+
+    }
+    catch (err) {
+
         console.error(err);
 
         res.status(500).json({
