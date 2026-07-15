@@ -1,0 +1,23 @@
+# Node
+**/node_modules/
+
+# React Build
+frontend/dist/
+
+# Python
+ml-service/venv/
+ml-service/__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# OS Files
+.DS_Store
+Thumbs.db
