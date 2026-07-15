@@ -1,5 +1,5 @@
 const userRoutes = require("./routes/userRoutes");
-const axios = require("axios");
+//const axios = require("axios");
 const express = require("express");
 const cors = require("cors");
 
@@ -277,7 +277,7 @@ app.delete("/api/users/:id", (req, res) => {
     }
 
 });*/
-app.post("/api/password-analysis", async (req, res) => {
+/*app.post("/api/password-analysis", async (req, res) => {
 
     try {
 
@@ -320,6 +320,69 @@ Return ONLY valid JSON.
             status: "SUCCESS",
 
             ai: aiResult
+
+        });
+
+    }
+    catch (err) {
+
+        console.error(err);
+
+        res.status(500).json({
+
+            status: "ERROR",
+
+            message: err.message
+
+        });
+
+    }
+
+});*/
+
+app.post("/api/password-analysis", async (req, res) => {
+
+    try {
+
+        const password = req.body.password;
+
+        let summary = "";
+        let recommendation = [];
+
+        if (password.length < 8) {
+
+            summary = "Password is weak because it is too short.";
+
+            recommendation = [
+                "Use at least 12 characters.",
+                "Add uppercase letters.",
+                "Include special characters."
+            ];
+
+        }
+        else {
+
+            summary = "Password looks reasonably strong.";
+
+            recommendation = [
+                "Avoid dictionary words.",
+                "Change your password periodically.",
+                "Enable multi-factor authentication."
+            ];
+
+        }
+
+        res.json({
+
+            status: "SUCCESS",
+
+            ai: {
+
+                summary,
+
+                recommendation
+
+            }
 
         });
 
