@@ -10,6 +10,7 @@ function App() {
     const [selectedUserId, setSelectedUserId] = useState(null);
     const [analysis, setAnalysis] = useState(null);
     const [mlResult, setMlResult] = useState(null);
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Function to call Node.js API
     async function saveUser() {
@@ -40,7 +41,7 @@ function App() {
 
         try {
 
-            const response = await fetch("http://localhost:3000/api/users", {
+            const response = await fetch(`${API_URL}/api/users`, {
                 method: "POST",
 
                 headers: {
@@ -76,7 +77,7 @@ function App() {
 
     try {
 
-        const response = await fetch("http://localhost:3000/api/users");
+        const response = await fetch(`${API_URL}/api/users`);
 
         const data = await response.json();
 
@@ -108,7 +109,7 @@ async function deleteUser(id) {
     try {
 
         const response = await fetch(
-            `http://localhost:3000/api/users/${id}`,
+            `${API_URL}/api/users/${id}`,
             {
                 method: "DELETE"
             }
@@ -171,7 +172,7 @@ async function updateUser() {
     try {
 
         const response = await fetch(
-            `http://localhost:3000/api/users/${selectedUserId}`,
+            `${API_URL}/api/users/${selectedUserId}`,
             {
                 method: "PUT",
 
@@ -226,7 +227,7 @@ async function analyzePassword() {
     try {
 
         const response = await fetch(
-            "http://localhost:3000/api/password-analysis",
+            '${API_URL}/api/password-analysis',
             {
                 method: "POST",
 
