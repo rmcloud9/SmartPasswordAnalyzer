@@ -227,7 +227,7 @@ async function analyzePassword() {
     try {
 
         const response = await fetch(
-            '${API_URL}/api/password-analysis',
+            `${API_URL}/api/password-analysis`,
             {
                 method: "POST",
 
